@@ -27,24 +27,15 @@ First, check if `specs/course.yaml` exists in the current working directory.
 
 Ask the user: **"What is the name of your course?"**
 
-Wait for their response, then run the initialization:
+Wait for their response, then run the initialization **in the current directory**:
 
 ```bash
-./templates/init-course.sh "<course-name>"
+./templates/init-course.sh --here "<course-name>"
 ```
 
-This creates the course project as a subdirectory. After it completes, inform the user:
+This initializes the course project in the current directory (adds specs/, content/, assets/, etc.).
 
-```
-Course project created: <course-name>/
-
-To start development:
-  cd <course-name>
-  claude
-  /course-os
-```
-
-**STOP HERE** - The user needs to cd into the new directory and restart Claude Code.
+After it completes, **immediately proceed to Step 3** to start Phase 1.
 
 ### Step 3: Resume/Start Course Development
 

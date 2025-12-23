@@ -1,24 +1,58 @@
 #!/bin/bash
 
-# Course OS - New Course Initializer
-# Usage: ./init-course.sh <course-name>
+# Course OS - Course Initializer
+# Usage: ./templates/init-course.sh <course-name>
+#   or:  ./templates/init-course.sh --here <course-name>
+#
+# --here flag initializes in current directory instead of creating subdirectory
 
-if [ -z "$1" ]; then
-    echo "Usage: ./init-course.sh <course-name>"
-    echo "Example: ./init-course.sh my-awesome-course"
+set -e
+
+# Parse arguments
+INIT_HERE=false
+COURSE_NAME=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --here)
+            INIT_HERE=true
+            shift
+            ;;
+        *)
+            COURSE_NAME="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$COURSE_NAME" ]; then
+    echo "Usage: ./templates/init-course.sh [--here] <course-name>"
+    echo ""
+    echo "Options:"
+    echo "  --here    Initialize in current directory (don't create subdirectory)"
+    echo ""
+    echo "Examples:"
+    echo "  ./templates/init-course.sh my-awesome-course"
+    echo "  ./templates/init-course.sh --here my-awesome-course"
     exit 1
 fi
 
-COURSE_NAME=$1
-COURSE_DIR=$(pwd)/$COURSE_NAME
+# Determine target directory
+if [ "$INIT_HERE" = true ]; then
+    COURSE_DIR=$(pwd)
+    echo "Initializing Course OS project in current directory: $COURSE_NAME"
+else
+    COURSE_DIR=$(pwd)/$COURSE_NAME
+    echo "Creating Course OS project: $COURSE_NAME"
+    mkdir -p "$COURSE_DIR"
+fi
 
-echo "Creating Course OS project: $COURSE_NAME"
+# Get script directory for copying skills
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Create directory structure
 mkdir -p "$COURSE_DIR"/{specs/modules,content/{scripts,lessons,assessments/{quizzes,projects,rubrics,self,surveys},examples,activities,resources},assets/{images,videos,audio,downloads},production/{shot-lists,graphics,audio,interactive,accessibility,checklists,handoff,exports/{universal,teachable,thinkific,scorm,xapi,localization}},.course-os/{imports/{courses,references,media,urls,knowledge},research,reviews}}
-
-# Copy templates
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Get current date
 TODAY=$(date +%Y-%m-%d)
@@ -61,23 +95,130 @@ phases:
 tags: []
 EOF
 
-if [ -f "$SCRIPT_DIR/progress.yaml" ]; then
-    cp "$SCRIPT_DIR/progress.yaml" "$COURSE_DIR/specs/progress.yaml"
-fi
+# Create progress.yaml
+cat > "$COURSE_DIR/specs/progress.yaml" << EOF
+# Course OS - Progress Tracking
+# Generated: $TODAY
 
-# Copy Course OS skills to the new project
-REPO_DIR="$(dirname "$SCRIPT_DIR")"
-if [ -d "$REPO_DIR/.claude/skills" ]; then
+project:
+  name: "$COURSE_NAME"
+  started: $TODAY
+  target_completion: ""
+
+phases:
+  import:
+    status: pending
+    started_at: null
+    completed_at: null
+    sources_imported: 0
+    notes: []
+    blockers: []
+
+  research:
+    status: pending
+    started_at: null
+    completed_at: null
+    passes_completed: 0
+    concepts_mapped: 0
+    notes: []
+    blockers: []
+
+  discovery:
+    status: pending
+    started_at: null
+    completed_at: null
+    personas_created: 0
+    competitors_analyzed: 0
+    notes: []
+    blockers: []
+
+  strategy:
+    status: pending
+    started_at: null
+    completed_at: null
+    outcomes_defined: 0
+    notes: []
+    blockers: []
+
+  architecture:
+    status: pending
+    started_at: null
+    completed_at: null
+    modules_designed: 0
+    lessons_planned: 0
+    notes: []
+    blockers: []
+
+  content:
+    status: pending
+    started_at: null
+    completed_at: null
+    lessons_designed: 0
+    examples_created: 0
+    activities_designed: 0
+    notes: []
+    blockers: []
+
+  scripts:
+    status: pending
+    started_at: null
+    completed_at: null
+    scripts_written: 0
+    total_word_count: 0
+    notes: []
+    blockers: []
+
+  assessments:
+    status: pending
+    started_at: null
+    completed_at: null
+    quizzes_created: 0
+    projects_created: 0
+    rubrics_created: 0
+    notes: []
+    blockers: []
+
+  media:
+    status: pending
+    started_at: null
+    completed_at: null
+    videos_planned: 0
+    graphics_planned: 0
+    notes: []
+    blockers: []
+
+  production:
+    status: pending
+    started_at: null
+    completed_at: null
+    exports_generated: []
+    notes: []
+    blockers: []
+
+quality:
+  scores: {}
+  audits: []
+  reviews: []
+
+course_status: in_development
+completion_date: null
+final_version: null
+EOF
+
+# Copy Course OS skills if not already present
+if [ -d "$REPO_DIR/.claude/skills" ] && [ ! -d "$COURSE_DIR/.claude/skills/course-os" ]; then
     echo "Installing Course OS skills..."
-    cp -r "$REPO_DIR/.claude" "$COURSE_DIR/"
+    mkdir -p "$COURSE_DIR/.claude"
+    cp -r "$REPO_DIR/.claude/skills" "$COURSE_DIR/.claude/"
 fi
 
-# Initialize git with 'main' as default branch
-cd "$COURSE_DIR"
-git init -b main
+# Initialize git if not already a repo (skip if --here and already has .git)
+if [ ! -d "$COURSE_DIR/.git" ]; then
+    cd "$COURSE_DIR"
+    git init -b main
 
-# Create .gitignore
-cat > .gitignore << 'EOF'
+    # Create .gitignore
+    cat > .gitignore << 'GITIGNORE'
 # OS files
 .DS_Store
 Thumbs.db
@@ -101,69 +242,20 @@ Thumbs.db
 # Sensitive files
 *.env
 credentials.json
-EOF
+GITIGNORE
 
-# Create initial README
-cat > README.md << EOF
-# $COURSE_NAME
-
-Created with [Course OS](https://github.com/buildermethods/course-os)
-
-## Getting Started
-
-1. Run \`/course-os\` to start course development
-2. Follow the 10-phase workflow
-3. Each phase produces specifications and content
-
-## Project Structure
-
-\`\`\`
-$COURSE_NAME/
-├── specs/           # Course specifications (YAML)
-├── content/         # Course content (Markdown + YAML)
-├── assets/          # Media assets
-├── production/      # Production materials
-└── .course-os/      # Working files
-\`\`\`
-
-## Phases
-
-1. Source Collection & Import
-2. Deep Topic Research
-3. Audience & Market Discovery
-4. Course Strategy
-5. Curriculum Architecture
-6. Content Design
-7. Script Development
-8. Assessment Design
-9. Media Production Planning
-10. Production Package
-
-## Commands
-
-- \`/course-os\` - Start/resume full course development
-- \`/course-import\` - Phase 1: Import sources
-- \`/course-research\` - Phase 2: Deep research
-- \`/course-discovery\` - Phase 3: Audience analysis
-- \`/course-strategy\` - Phase 4: Define strategy
-- \`/course-architecture\` - Phase 5: Design curriculum
-- \`/course-content\` - Phase 6: Design content
-- \`/course-scripts\` - Phase 7: Write scripts
-- \`/course-assessments\` - Phase 8: Create assessments
-- \`/course-media\` - Phase 9: Plan media
-- \`/course-production\` - Phase 10: Production package
-EOF
-
-# Initial commit
-git add .
-git commit -m "Initialize Course OS project: $COURSE_NAME
-
-Created with Course OS - the comprehensive course development system."
+    git add .
+    git commit -m "Initialize Course OS project: $COURSE_NAME"
+fi
 
 echo ""
-echo "Course project created at: $COURSE_DIR"
+echo "Course project initialized: $COURSE_DIR"
 echo ""
-echo "Next steps:"
-echo "  1. cd $COURSE_NAME"
-echo "  2. Run /course-os to start development"
+if [ "$INIT_HERE" = true ]; then
+    echo "Run /course-os to start Phase 1: Source Collection & Import"
+else
+    echo "Next steps:"
+    echo "  1. cd $COURSE_NAME"
+    echo "  2. Run /course-os to start development"
+fi
 echo ""
