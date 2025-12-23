@@ -65,6 +65,13 @@ if [ -f "$SCRIPT_DIR/progress.yaml" ]; then
     cp "$SCRIPT_DIR/progress.yaml" "$COURSE_DIR/specs/progress.yaml"
 fi
 
+# Copy Course OS skills to the new project
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+if [ -d "$REPO_DIR/.claude/skills" ]; then
+    echo "Installing Course OS skills..."
+    cp -r "$REPO_DIR/.claude" "$COURSE_DIR/"
+fi
+
 # Initialize git with 'main' as default branch
 cd "$COURSE_DIR"
 git init -b main
