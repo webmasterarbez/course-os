@@ -1,0 +1,103 @@
+# Course OS - Lesson Schema
+# Reference for structuring lesson blueprints
+
+lesson:
+  id: ""  # module-01-lesson-01
+  module: ""  # module-01
+  title: ""
+  slug: ""
+
+  metadata:
+    duration: ""  # "15 minutes"
+    type: ""  # video | text | interactive | audio | mixed
+    difficulty: ""  # beginner | intermediate | advanced
+
+  objectives:
+    primary: ""  # Main learning objective
+    secondary: []  # Supporting objectives
+    bloom_level: ""  # Cognitive level targeted
+
+  # Gagné's 9 Events of Instruction
+  gagne_events:
+    # 1. Gain Attention
+    attention:
+      hook: ""  # Opening hook to capture interest
+      relevance: ""  # Why this matters to the learner
+
+    # 2. Inform Learner of Objectives
+    objectives:
+      stated: ""  # Clear statement of what they'll learn
+      success_criteria: []  # How they'll know they succeeded
+
+    # 3. Stimulate Recall of Prior Learning
+    recall:
+      prior_knowledge: ""  # What they should already know
+      connection: ""  # How this connects to previous learning
+
+    # 4. Present Content
+    content:
+      key_concepts:
+        - concept: ""
+          explanation: ""
+          importance: ""
+      structure:
+        - section: ""
+          duration: ""
+          content_points: []
+
+    # 5. Provide Learning Guidance
+    guidance:
+      tips: []  # Helpful tips
+      common_mistakes: []  # What to avoid
+      best_practices: []  # Recommended approaches
+
+    # 6. Elicit Performance
+    practice:
+      activity_type: ""  # exercise | reflection | application
+      instructions: ""
+      duration: ""
+
+    # 7. Provide Feedback
+    feedback:
+      self_check: []  # Self-assessment questions
+      explanations: []  # Feedback on common responses
+
+    # 8. Assess Performance
+    assessment:
+      type: ""  # quiz | demonstration | project_component
+      criteria: []
+
+    # 9. Enhance Retention and Transfer
+    transfer:
+      real_world: ""  # Real-world application
+      next_steps: ""  # What comes next
+
+  examples:
+    - id: ""
+      type: ""  # case_study | walkthrough | scenario | comparison
+      title: ""
+      context: ""
+      content: ""
+      key_takeaway: ""
+
+  activities:
+    - id: ""
+      type: ""  # exercise | reflection | discussion | application
+      title: ""
+      instructions: ""
+      duration: ""
+      materials_needed: []
+      expected_outcome: ""
+
+  resources:
+    required: []
+    supplementary: []
+    downloads: []
+
+  transitions:
+    from_previous: ""  # How this connects from previous lesson
+    to_next: ""  # How this leads to next lesson
+
+  notes:
+    instructor: []  # Notes for instructor/creator
+    production: []  # Notes for production team

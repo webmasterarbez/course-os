@@ -1,0 +1,63 @@
+# Course OS - Module Schema
+# Reference for structuring module specifications
+
+module:
+  id: ""  # module-01
+  number: 1
+  title: ""
+  slug: ""
+
+  overview:
+    description: ""  # Module description
+    duration: ""  # Total module duration
+    lessons_count: 0  # Number of lessons
+
+  outcomes:
+    # Map from course-level outcomes
+    primary:
+      - outcome_id: ""  # Reference to outcome in specs/outcomes.yaml
+        addressed_in: []  # Which lessons address this
+
+    supporting:
+      - outcome_id: ""
+        addressed_in: []
+
+  prerequisites:
+    modules: []  # Previous modules required
+    knowledge: []  # External knowledge required
+    skills: []  # Skills required
+
+  lessons:
+    - id: ""  # lesson-01
+      title: ""
+      duration: ""
+      type: ""  # video | text | interactive | exercise
+      outcome_focus: []  # Which outcomes this lesson focuses on
+
+    # Add more lessons...
+
+  assessments:
+    - type: ""  # quiz | project | reflection
+      id: ""
+      placement: ""  # end | during | after-lesson-X
+      outcomes_assessed: []
+
+  resources:
+    required:
+      - name: ""
+        type: ""
+        description: ""
+    supplementary:
+      - name: ""
+        type: ""
+        description: ""
+
+  milestones:
+    - name: ""  # Milestone name
+      after_lesson: ""  # When achieved
+      celebration: ""  # How to celebrate
+      unlocks: []  # What this unlocks
+
+  notes:
+    instructor: []
+    design: []

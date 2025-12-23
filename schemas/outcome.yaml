@@ -1,0 +1,71 @@
+# Course OS - Learning Outcome Schema
+# Reference for structuring learning outcomes
+
+outcome:
+  id: ""  # outcome-01, outcome-02, etc.
+
+  statement: ""  # "Learners will be able to..."
+
+  bloom_level: ""  # remember | understand | apply | analyze | evaluate | create
+
+  bloom_verbs:
+    remember:
+      - recall
+      - list
+      - define
+      - identify
+      - name
+      - recognize
+    understand:
+      - explain
+      - describe
+      - summarize
+      - interpret
+      - classify
+      - compare
+    apply:
+      - implement
+      - execute
+      - use
+      - demonstrate
+      - solve
+      - apply
+    analyze:
+      - differentiate
+      - examine
+      - compare
+      - contrast
+      - organize
+      - deconstruct
+    evaluate:
+      - judge
+      - critique
+      - justify
+      - assess
+      - defend
+      - evaluate
+    create:
+      - design
+      - construct
+      - develop
+      - formulate
+      - build
+      - produce
+
+  measurable: true  # Must be measurable
+
+  assessment_method: ""  # How this outcome will be assessed
+
+  module_mapping: []  # Which modules address this outcome
+
+  lesson_mapping: []  # Which lessons address this outcome
+
+# Example:
+# outcome:
+#   id: outcome-01
+#   statement: "Learners will be able to design a responsive web layout using CSS Grid"
+#   bloom_level: create
+#   measurable: true
+#   assessment_method: "Project submission with rubric evaluation"
+#   module_mapping: [module-02, module-03]
+#   lesson_mapping: [m02-l01, m02-l02, m03-l01]

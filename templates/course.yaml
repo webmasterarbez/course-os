@@ -1,0 +1,34 @@
+# Course OS - Course Specification Template
+# Copy this to your course project as specs/course.yaml
+
+course:
+  name: ""
+  slug: ""
+  version: "0.1.0"
+  status: "planning"  # planning | development | review | production | published
+  created: YYYY-MM-DD
+  updated: YYYY-MM-DD
+
+meta:
+  author: ""
+  organization: ""
+  contact: ""
+  languages:
+    primary: "en"
+    translations: []
+
+type:
+  format: ""  # self-paced | cohort | live | hybrid
+  category: ""  # online | corporate | academic | workshop
+  level: ""  # beginner | intermediate | advanced | all-levels
+
+duration:
+  total: ""
+  recommended_pace: ""
+  access_period: ""  # lifetime | 12-months | etc.
+
+phases:
+  current: 1
+  completed: []
+
+tags: []

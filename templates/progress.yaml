@@ -1,0 +1,106 @@
+# Course OS - Progress Tracking Template
+# Copy this to your course project as specs/progress.yaml
+
+project:
+  name: ""
+  started: YYYY-MM-DD
+  target_completion: ""
+
+phases:
+  import:
+    status: pending  # pending | in_progress | completed | blocked
+    started_at: null
+    completed_at: null
+    sources_imported: 0
+    notes: []
+    blockers: []
+
+  research:
+    status: pending
+    started_at: null
+    completed_at: null
+    passes_completed: 0
+    concepts_mapped: 0
+    notes: []
+    blockers: []
+
+  discovery:
+    status: pending
+    started_at: null
+    completed_at: null
+    personas_created: 0
+    competitors_analyzed: 0
+    notes: []
+    blockers: []
+
+  strategy:
+    status: pending
+    started_at: null
+    completed_at: null
+    outcomes_defined: 0
+    notes: []
+    blockers: []
+
+  architecture:
+    status: pending
+    started_at: null
+    completed_at: null
+    modules_designed: 0
+    lessons_planned: 0
+    notes: []
+    blockers: []
+
+  content:
+    status: pending
+    started_at: null
+    completed_at: null
+    lessons_designed: 0
+    examples_created: 0
+    activities_designed: 0
+    notes: []
+    blockers: []
+
+  scripts:
+    status: pending
+    started_at: null
+    completed_at: null
+    scripts_written: 0
+    total_word_count: 0
+    notes: []
+    blockers: []
+
+  assessments:
+    status: pending
+    started_at: null
+    completed_at: null
+    quizzes_created: 0
+    projects_created: 0
+    rubrics_created: 0
+    notes: []
+    blockers: []
+
+  media:
+    status: pending
+    started_at: null
+    completed_at: null
+    videos_planned: 0
+    graphics_planned: 0
+    notes: []
+    blockers: []
+
+  production:
+    status: pending
+    started_at: null
+    completed_at: null
+    exports_generated: []
+    notes: []
+    blockers: []
+
+quality:
+  scores: {}
+  audits: []
+  reviews: []
+
+course_status: in_development  # in_development | review | complete
+completion_date: null
+final_version: null
