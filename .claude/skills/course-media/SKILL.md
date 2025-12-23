@@ -1,10 +1,13 @@
+---
+name: course-media
+description: Use for Phase 9 of course development - planning media production including video shot lists, graphics, audio, and accessibility requirements. Triggers on "/course-media", "plan course media", or after completing Phase 8.
+---
+
 # Phase 9: Media Production Planning
 
 ## Overview
 
 Specify all media assets needed: video shot lists, graphics, audio, interactive elements, and accessibility requirements. This phase creates the production blueprint.
-
-**Use this skill to:** Plan video production, graphics, audio, and all media assets needed for your course.
 
 ## When to Use
 

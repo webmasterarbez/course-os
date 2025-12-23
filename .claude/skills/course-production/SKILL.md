@@ -1,10 +1,13 @@
+---
+name: course-production
+description: Use for Phase 10 of course development - generating the complete production package including handoff documentation, platform exports, and launch checklists. Triggers on "/course-production", "generate course package", or after completing Phase 9.
+---
+
 # Phase 10: Production Package
 
 ## Overview
 
 Compile the complete handoff package: master documentation, platform exports, production checklists, and launch readiness. This is the final deliverable of Course OS.
-
-**Use this skill to:** Generate the complete production package for course implementation, including all exports and handoff documentation.
 
 ## When to Use
 

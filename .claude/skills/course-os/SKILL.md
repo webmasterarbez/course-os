@@ -1,6 +1,9 @@
-# course-os
+---
+name: course-os
+description: Use when creating, developing, or resuming work on an educational course. Triggers on "/course-os", "create a course", "start course development", "course creation", "build a course", or "develop curriculum".
+---
 
-Use this skill when the user wants to create, develop, or resume work on an educational course. Triggers on: "/course-os", "create a course", "start course development", "course creation", "build a course", "develop curriculum".
+# Course OS - Course Development System
 
 ## Overview
 

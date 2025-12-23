@@ -1,10 +1,13 @@
+---
+name: course-architecture
+description: Use for Phase 5 of course development - designing curriculum structure including modules, lessons, sequencing, and learning paths. Triggers on "/course-architecture", "design curriculum", or after completing Phase 4.
+---
+
 # Phase 5: Curriculum Architecture
 
 ## Overview
 
 Design the complete learning structure: modules, lessons, sequencing, and learning paths. This phase transforms strategy into an actionable curriculum framework.
-
-**Use this skill to:** Structure your course into modules and lessons, design learning paths, and create the curriculum blueprint.
 
 ## When to Use
 

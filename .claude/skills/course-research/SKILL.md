@@ -1,10 +1,13 @@
+---
+name: course-research
+description: Use for Phase 2 of course development - conducting deep topic research using multi-pass strategy to build comprehensive knowledge foundation. Triggers on "/course-research", "research course topic", or after completing Phase 1.
+---
+
 # Phase 2: Deep Topic Research
 
 ## Overview
 
 Comprehensive subject matter investigation using multi-pass research. This phase synthesizes imported sources with new research to build complete topic understanding.
-
-**Use this skill to:** Conduct deep research on your course topic, synthesizing existing materials with web research to create a comprehensive knowledge foundation.
 
 ## When to Use
 

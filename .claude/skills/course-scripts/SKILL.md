@@ -1,10 +1,13 @@
+---
+name: course-scripts
+description: Use for Phase 7 of course development - writing production-ready scripts for videos, audio, presentations, and facilitation guides. Triggers on "/course-scripts", "write course scripts", or after completing Phase 6.
+---
+
 # Phase 7: Script Development
 
 ## Overview
 
 Write production-ready scripts adapted to content type: video scripts, audio scripts, presentation notes, and facilitation guides. Scripts are the bridge between content design and production.
-
-**Use this skill to:** Create word-for-word scripts, talking points, and presentation materials for all course content.
 
 ## When to Use
 

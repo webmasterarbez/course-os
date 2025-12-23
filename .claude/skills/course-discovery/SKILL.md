@@ -1,10 +1,13 @@
+---
+name: course-discovery
+description: Use for Phase 3 of course development - researching target audience, creating learner personas, analyzing competitors, and defining market positioning. Triggers on "/course-discovery", "analyze course audience", or after completing Phase 2.
+---
+
 # Phase 3: Audience & Market Discovery
 
 ## Overview
 
 Understand who you're teaching and what already exists in the market. This phase creates learner personas, analyzes competitors, and identifies differentiation opportunities.
-
-**Use this skill to:** Research your target audience, analyze competitor courses, and define your unique market position.
 
 ## When to Use
 

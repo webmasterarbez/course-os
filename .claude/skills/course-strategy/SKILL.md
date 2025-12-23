@@ -1,10 +1,13 @@
+---
+name: course-strategy
+description: Use for Phase 4 of course development - defining course vision, learning outcomes aligned with Bloom's Taxonomy, format, and success metrics. Triggers on "/course-strategy", "define course outcomes", or after completing Phase 3.
+---
+
 # Phase 4: Course Strategy
 
 ## Overview
 
 Define the course vision, learning outcomes, format, and success metrics. This phase establishes the strategic foundation that guides all subsequent development.
-
-**Use this skill to:** Set your course vision, define measurable learning outcomes aligned with Bloom's Taxonomy, choose format, and establish success criteria.
 
 ## When to Use
 

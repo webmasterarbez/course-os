@@ -1,10 +1,13 @@
+---
+name: course-import
+description: Use for Phase 1 of course development - importing existing course materials, reference content, media links, and knowledge sources. Triggers on "/course-import", "import course materials", "add course sources", or starting a new course project.
+---
+
 # Phase 1: Source Collection & Import
 
 ## Overview
 
 The first phase of Course OS. Collect and organize all source materials, existing content, and reference materials before research begins.
-
-**Use this skill to:** Import existing course materials, reference content, media links, and knowledge sources into your course project.
 
 ## When to Use
 

@@ -1,10 +1,13 @@
+---
+name: course-assessments
+description: Use for Phase 8 of course development - designing assessments aligned with Kirkpatrick's 4 levels including quizzes, projects, rubrics, and certification criteria. Triggers on "/course-assessments", "create course assessments", or after completing Phase 7.
+---
+
 # Phase 8: Assessment Design
 
 ## Overview
 
 Design comprehensive assessments aligned with Kirkpatrick's 4 levels: knowledge checks, projects, rubrics, and certification criteria. Assessments validate learning and provide feedback loops.
-
-**Use this skill to:** Create quizzes, projects, rubrics, self-assessments, and certification requirements for your course.
 
 ## When to Use
 

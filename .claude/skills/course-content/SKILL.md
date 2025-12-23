@@ -1,10 +1,13 @@
+---
+name: course-content
+description: Use for Phase 6 of course development - creating detailed lesson plans, examples, case studies, activities, and resources. Triggers on "/course-content", "design course content", or after completing Phase 5.
+---
+
 # Phase 6: Content Design
 
 ## Overview
 
 Create detailed lesson plans, design examples and case studies, plan activities, and curate resources. This phase transforms the curriculum architecture into actionable content blueprints.
-
-**Use this skill to:** Design detailed lesson content, examples, activities, and supporting resources for each lesson in your curriculum.
 
 ## When to Use
 
