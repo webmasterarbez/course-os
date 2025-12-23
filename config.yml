@@ -1,0 +1,78 @@
+# Course OS Configuration
+# This file controls Course OS behavior at the repository level.
+
+version: "1.0"
+profile: default  # Options: default, mini, workshop
+
+# Profile definitions - controls which phases run and how
+profiles:
+  default:
+    name: "Full Course"
+    description: "Complete 10-phase course development"
+    phases: all
+    depth: comprehensive
+    exports: [universal, teachable, thinkific, scorm, xapi]
+
+  mini:
+    name: "Mini-Course"
+    description: "Condensed course for quick launches"
+    phases: [1, 2, 4, 5, 6, 7, 10]  # Skip deep discovery (3), full assessments (8), detailed media (9)
+    depth: condensed
+    exports: [universal]
+
+  workshop:
+    name: "Workshop/Intensive"
+    description: "Live workshop or intensive program"
+    phases: [4, 5, 6, 8, 10]  # Strategy → Production focus
+    depth: minimal
+    exports: [universal, slides, facilitation]
+
+# Global settings
+settings:
+  # Interaction style
+  ask_one_question: true       # Ask questions one at a time
+  show_progress: true          # Display progress after each phase
+
+  # Git integration
+  auto_git_commit: true        # Commit after each phase
+  create_tags: true            # Create git tags for phases
+
+  # Quality controls
+  quality_gates: strict        # Options: strict, relaxed, none
+  require_quality_pass: true   # Block next phase if quality fails
+
+  # Framework hints
+  show_framework_hints: true   # Show Bloom's/Gagné/etc. references
+  inline_references: true      # Include condensed refs in skills
+
+  # Output preferences
+  yaml_style: block            # Options: block, flow
+  markdown_style: commonmark   # Options: commonmark, gfm
+
+# Export configuration
+exports:
+  default_format: universal
+  include_source_files: false
+  generate_readme: true
+
+  platforms:
+    teachable:
+      enabled: true
+      format: html
+    thinkific:
+      enabled: true
+      format: json
+    scorm:
+      enabled: true
+      version: "2004"
+    xapi:
+      enabled: true
+      lrs_endpoint: ""
+
+# Accessibility defaults
+accessibility:
+  wcag_level: "AA"             # Options: A, AA, AAA
+  require_captions: true
+  require_transcripts: true
+  require_alt_text: true
+  color_contrast_ratio: 4.5

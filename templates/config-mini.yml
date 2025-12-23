@@ -1,0 +1,67 @@
+# Course OS - Mini-Course Profile Configuration
+# Condensed workflow for quick course launches
+
+profile: mini
+
+name: "Mini-Course"
+description: |
+  Streamlined 7-phase workflow for mini-courses and lead magnets.
+  Skips deep discovery, detailed assessments, and extensive media planning.
+  Best for: Lead magnets, mini-courses, quick wins, MVP courses.
+
+phases:
+  enabled: [1, 2, 4, 5, 6, 7, 10]
+  skipped: [3, 8, 9]  # Discovery, Assessments, Media (condensed into other phases)
+
+  phase_config:
+    import:
+      depth: condensed
+      require_sources: false  # Can start with just expertise
+
+    research:
+      passes: 2  # Landscape + synthesis only
+      require_knowledge_map: true
+      require_misconceptions: false
+
+    # Phase 3 (Discovery) - SKIPPED
+    # Basic persona captured in Phase 4
+
+    strategy:
+      require_blooms_alignment: true
+      require_kirkpatrick_metrics: false  # Simplified
+      include_basic_persona: true  # Capture here instead of Phase 3
+
+    architecture:
+      require_gagne_events: false  # Simplified lesson structure
+      require_outcome_mapping: true
+      max_modules: 5
+      max_lessons_per_module: 5
+
+    content:
+      require_merrills_principles: true
+      require_examples: true
+      require_activities: false  # Optional
+
+    scripts:
+      formats: [video]  # Single format focus
+      require_visual_cues: true
+
+    # Phase 8 (Assessments) - SKIPPED
+    # Basic quiz included in content phase
+
+    # Phase 9 (Media) - SKIPPED
+    # Basic shot list included in scripts phase
+
+    production:
+      require_quality_audit: false  # Simplified review
+      generate_all_exports: false
+
+exports:
+  - universal
+
+quality:
+  gates: relaxed
+  minimum_score: 70
+  require_review: false
+
+duration_estimate: "1-2 weeks"

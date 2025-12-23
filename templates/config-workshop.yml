@@ -1,0 +1,75 @@
+# Course OS - Workshop Profile Configuration
+# Focused workflow for live workshops and intensive programs
+
+profile: workshop
+
+name: "Workshop/Intensive"
+description: |
+  Strategy-to-production focus for live workshops and intensive programs.
+  Skips import/research (assumes expert knowledge) and detailed media planning.
+  Best for: Live workshops, bootcamps, corporate training, intensive programs.
+
+phases:
+  enabled: [4, 5, 6, 8, 10]
+  skipped: [1, 2, 3, 7, 9]  # Import, Research, Discovery, Scripts, Media
+
+  phase_config:
+    # Phases 1-3 SKIPPED
+    # Workshop creator is the expert; audience is known
+
+    strategy:
+      require_blooms_alignment: true
+      require_kirkpatrick_metrics: true
+      include_basic_persona: true
+      include_workshop_logistics: true
+
+    architecture:
+      require_gagne_events: true
+      require_outcome_mapping: true
+      session_based: true  # Structure as sessions, not modules
+      max_sessions: 8
+
+    content:
+      require_merrills_principles: true
+      require_examples: true
+      require_activities: true  # Critical for workshops
+      focus_on_facilitation: true
+
+    # Phase 7 (Scripts) - SKIPPED
+    # Facilitation guides created in Phase 6
+
+    assessments:
+      require_all_kirkpatrick_levels: true
+      focus_on_level_3_4: true  # Behavior and results
+      require_rubrics: true
+      include_peer_assessment: true
+
+    # Phase 9 (Media) - SKIPPED
+    # Workshops use minimal pre-recorded media
+
+    production:
+      require_quality_audit: true
+      generate_facilitator_package: true
+
+exports:
+  - universal
+  - slides
+  - facilitation
+
+quality:
+  gates: strict
+  minimum_score: 80
+  require_review: true
+
+duration_estimate: "1-2 weeks"
+
+# Workshop-specific settings
+workshop:
+  format: intensive  # Options: half-day, full-day, multi-day, intensive
+  max_participants: 30
+  breakout_rooms: true
+  materials:
+    - facilitator_guide
+    - participant_workbook
+    - slides
+    - handouts

@@ -1,6 +1,10 @@
 ---
 name: course-research
 description: Use for Phase 2 of Course OS - conducting comprehensive topic research using a 4-pass strategy (landscape, deep dive, gap filling, synthesis) to build complete subject matter understanding. Triggers on "/course-research", "research topic", "deep dive research", or after completing Phase 1.
+prerequisites: [course-import]
+outputs: [.course-os/research/pass-*.md, .course-os/research/synthesis.md, .course-os/research/knowledge-map.yaml, .course-os/research/misconceptions.yaml, specs/research.yaml]
+exports: [phase-2-research.yaml]
+frameworks: []
 ---
 
 # Phase 2: Deep Topic Research
@@ -17,10 +21,7 @@ Comprehensive subject matter investigation using multi-pass research strategy.
 
 ### Step 1: Review Phase 1 Outputs
 
-```bash
-cat .course-os/imports/catalog.yaml
-cat .course-os/imports/gaps.yaml
-```
+Review imported sources and identified gaps.
 
 ### Step 2: Define Research Scope
 
@@ -59,31 +60,89 @@ Ask ONE at a time:
 
 ### Step 4: Build Knowledge Map
 
-Create `.course-os/research/knowledge-map.yaml` - see `./knowledge-map-schema.md`
+Create `.course-os/research/knowledge-map.yaml`:
+
+```yaml
+concepts:
+  - id: concept-001
+    name: ""
+    description: ""
+    prerequisites: []
+    related_to: []
+    complexity: beginner|intermediate|advanced
+    sources: []
+
+relationships:
+  - from: concept-001
+    to: concept-002
+    type: prerequisite|related|builds_on|contrasts_with
+
+sequences:
+  suggested_order:
+    - concept-001
+    - concept-002
+```
+
+**Relationship Types:**
+- `prerequisite` - Must understand A before B
+- `related` - Connected but independent
+- `builds_on` - B extends or deepens A
+- `contrasts_with` - A and B are opposing approaches
 
 ### Step 5: Document Misconceptions
 
-Create `.course-os/research/misconceptions.yaml` - see `./misconceptions-schema.md`
+Create `.course-os/research/misconceptions.yaml`:
+
+```yaml
+misconceptions:
+  - id: misc-001
+    misconception: "What people wrongly believe"
+    reality: "What is actually true"
+    why_common: "Why this misconception exists"
+    how_to_address: "Teaching strategy to correct it"
+    sources: []
+```
 
 ## Outputs
 
-- `.course-os/research/pass-*.md` - Research passes
-- `.course-os/research/synthesis.md` - Unified synthesis
-- `.course-os/research/knowledge-map.yaml` - Concept map
-- `.course-os/research/misconceptions.yaml` - Common misunderstandings
-- `specs/research.yaml` - Research summary
+| File | Purpose |
+|------|---------|
+| `.course-os/research/pass-*.md` | Research passes |
+| `.course-os/research/synthesis.md` | Unified synthesis |
+| `.course-os/research/knowledge-map.yaml` | Concept map |
+| `.course-os/research/misconceptions.yaml` | Common misunderstandings |
+| `specs/research.yaml` | Research summary |
 
-## Quality Checklist
+## Export Artifacts
+
+After completing, add to `production/handoff/`:
+
+```yaml
+# production/handoff/phase-2-research.yaml
+research_summary:
+  passes_completed: 4
+  concepts_mapped: 45
+  misconceptions_identified: 8
+  key_themes:
+    - "Theme 1"
+    - "Theme 2"
+  depth: comprehensive
+  gaps_resolved: ["Topic A", "Topic B"]
+```
+
+## Quality Gate
 
 - [ ] All 4 research passes complete
 - [ ] Knowledge map covers major concepts
+- [ ] Concept relationships defined
 - [ ] Misconceptions documented
 - [ ] Gaps from Phase 1 addressed
+- [ ] Export artifact created
 
 ## Git Commit
 
 ```bash
-git add .course-os/research specs/research.yaml specs/progress.yaml
+git add .course-os/research specs/research.yaml production/handoff/phase-2-* specs/progress.yaml
 git commit -m "Phase 2: Deep topic research complete"
 git tag -a phase-2-research -m "Deep Topic Research Complete"
 ```

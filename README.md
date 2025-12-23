@@ -11,13 +11,14 @@ Course OS is the missing step between your course idea and production. It's a sk
 ## Features
 
 - **10-Phase Structured Workflow** — Never miss a step in course development
+- **Configuration Profiles** — Default (full), Mini (quick), Workshop (live) workflows
+- **Three-Layer Architecture** — Standards, Skills, and Commands layers
 - **Deep Research Agent** — Multi-pass research with knowledge mapping
 - **Instructional Design Frameworks** — ADDIE, Bloom's Taxonomy, Gagné's 9 Events, Kirkpatrick, Merrill's Principles
 - **Adaptive Script Generation** — Scripts formatted for video, screencast, slides, or live sessions
-- **Progressive Disclosure** — Concise skills with detailed supporting documentation
+- **Incremental Exports** — Handoff artifacts after each phase
 - **Multi-Platform Export** — Teachable, Thinkific, SCORM, xAPI, and more
 - **Built-in Accessibility** — WCAG 2.1 AA and Universal Design for Learning
-- **Full Localization Support** — Multi-language course development
 - **Quality Gates** — Validation at every phase
 - **Progress Tracking** — Resume where you left off with git-based versioning
 
@@ -54,31 +55,44 @@ claude
 
 Course OS will ask for your course name and initialize a project.
 
-### Option 2: Install Scripts
+### Option 2: Initialize with Profile
 
 ```bash
-# Install Course OS globally
-curl -sSL https://raw.githubusercontent.com/webmasterarbez/course-os/main/scripts/base-install.sh | bash
+# Clone and enter directory
+git clone https://github.com/webmasterarbez/course-os.git my-courses
+cd my-courses
 
-# Navigate to your project and install
-cd /path/to/your/project
-~/course-os/scripts/project-install.sh
+# Initialize with a specific profile
+./templates/init-course.sh my-course                    # Default (full 10-phase)
+./templates/init-course.sh my-course --profile mini     # Mini (7-phase quick)
+./templates/init-course.sh my-course --profile workshop # Workshop (5-phase live)
+
+# Start development
+cd my-course
+claude
+/course-os
 ```
 
-### Option 3: Manual Setup
+### Option 3: Initialize in Current Directory
 
 ```bash
-# Clone into a specific course project
-git clone https://github.com/webmasterarbez/course-os.git my-course-name
-cd my-course-name
-
-# Initialize manually
+# Initialize Course OS in an existing project
 ./templates/init-course.sh --here "My Course Name"
 
 # Start development
 claude
 /course-os
 ```
+
+## Configuration Profiles
+
+| Profile | Phases | Best For |
+|---------|--------|----------|
+| `default` | All 10 | Comprehensive online courses |
+| `mini` | 7 | Quick courses, MVPs |
+| `workshop` | 5 | Live workshops, bootcamps |
+
+Configuration stored in `config.yml` - customize phases, exports, and accessibility settings.
 
 ## Usage
 
@@ -107,78 +121,57 @@ Course OS reads `specs/progress.yaml` and continues where you left off.
 /course-production  # Phase 10: Generate package
 ```
 
-### Check Progress
+### Course Management
 
 ```
-/course-os status
-/course-os validate
+/course-os status    # Check progress
+/course-os validate  # Run quality checks
+/course-os export teachable  # Generate platform export
 ```
 
-## Skills Architecture
-
-Course OS uses a **progressive disclosure** pattern. Each skill has:
-
-1. **SKILL.md** — Concise instructions (60-100 lines)
-2. **Supporting files** — Detailed schemas, templates, and guides
-
-### Skill Structure
+### Phase Management
 
 ```
-.claude/skills/
-├── course-os/                    # Master orchestrator
-│   ├── SKILL.md
-│   ├── instructional-design-frameworks.md
-│   └── project-structure.md
-│
-├── course-import/                # Phase 1
-│   ├── SKILL.md
-│   ├── catalog-schema.md
-│   └── gaps-schema.md
-│
-├── course-research/              # Phase 2
-│   ├── SKILL.md
-│   ├── knowledge-map-schema.md
-│   └── misconceptions-schema.md
-│
-├── course-discovery/             # Phase 3
-│   ├── SKILL.md
-│   ├── persona-schema.md
-│   ├── competitor-schema.md
-│   └── learner-journey-schema.md
-│
-├── course-strategy/              # Phase 4
-│   ├── SKILL.md
-│   ├── blooms-taxonomy.md
-│   └── kirkpatrick-metrics.md
-│
-├── course-architecture/          # Phase 5
-│   ├── SKILL.md
-│   └── gagne-events.md
-│
-├── course-content/               # Phase 6
-│   ├── SKILL.md
-│   └── merrills-principles.md
-│
-├── course-scripts/               # Phase 7
-│   ├── SKILL.md
-│   └── script-templates.md
-│
-├── course-assessments/           # Phase 8
-│   ├── SKILL.md
-│   ├── quiz-design.md
-│   ├── project-design.md
-│   └── rubric-templates.md
-│
-├── course-media/                 # Phase 9
-│   ├── SKILL.md
-│   ├── shot-list-template.md
-│   └── accessibility-checklist.md
-│
-└── course-production/            # Phase 10
-    ├── SKILL.md
-    ├── quality-audit.md
-    └── export-formats.md
+/phase skip      # Skip current phase (with reason)
+/phase redo      # Redo a completed phase
+/phase complete  # Force-complete current phase
 ```
+
+## Architecture
+
+Course OS uses a three-layer architecture:
+
+### 1. Standards Layer (`.claude/standards/`)
+
+Universal instructional design frameworks:
+- `addie-framework.md` - ADDIE process model
+- `blooms-taxonomy.md` - Cognitive levels and verbs
+- `gagne-events.md` - 9 Events of Instruction
+- `kirkpatrick-metrics.md` - 4 Levels of Evaluation
+- `merrills-principles.md` - First Principles of Instruction
+
+### 2. Skills Layer (`.claude/skills/`)
+
+Self-contained phase execution skills. Each skill includes:
+- Enhanced YAML frontmatter (prerequisites, outputs, exports)
+- Inline condensed references
+- Export artifacts for incremental handoffs
+- Links to full standards
+
+### 3. Commands Layer (`.claude/commands/`)
+
+Course management operations:
+- `course/init.md` - Initialize project
+- `course/status.md` - Display progress
+- `course/validate.md` - Quality checks
+- `course/export.md` - Platform exports
+- `phase/skip.md` - Skip phase
+- `phase/redo.md` - Redo phase
+- `phase/complete.md` - Force complete
+
+### Quick Reference Cards (`.claude/quickref/`)
+
+Condensed phase guides with key questions, outputs, and quality gates.
 
 ## Course Project Structure
 
@@ -186,17 +179,15 @@ When you initialize a course, this structure is created:
 
 ```
 my-course/
+├── config.yml                # Project configuration
 ├── specs/                    # YAML specifications
 │   ├── course.yaml           # Master course spec
 │   ├── progress.yaml         # Phase tracking
 │   ├── outcomes.yaml         # Learning outcomes (Bloom's aligned)
 │   ├── personas.yaml         # Learner personas
 │   ├── positioning.yaml      # Market positioning
-│   ├── learner-journey.yaml  # Journey map
 │   ├── curriculum.yaml       # Curriculum architecture
 │   ├── assessments.yaml      # Assessment strategy
-│   ├── format.yaml           # Course format
-│   ├── success-metrics.yaml  # Kirkpatrick metrics
 │   └── modules/              # Per-module specs
 │
 ├── content/                  # Markdown content
@@ -205,9 +196,6 @@ my-course/
 │   ├── examples/             # Case studies
 │   ├── activities/           # Exercises
 │   ├── assessments/          # Quiz/project content
-│   │   ├── quizzes/
-│   │   ├── projects/
-│   │   └── rubrics/
 │   └── resources/            # Curated resources
 │
 ├── assets/                   # Media files
@@ -220,7 +208,11 @@ my-course/
 │   ├── shot-lists/
 │   ├── graphics/
 │   ├── checklists/
-│   ├── handoff/
+│   │   └── phase-gates/      # Phase completion checklists
+│   ├── handoff/              # Incremental exports
+│   │   ├── phase-1/
+│   │   ├── phase-2/
+│   │   └── ...
 │   └── exports/              # Platform exports
 │       ├── universal/
 │       ├── teachable/
@@ -230,16 +222,7 @@ my-course/
 │
 └── .course-os/               # Working files
     ├── imports/              # Imported sources
-    │   ├── catalog.yaml
-    │   ├── gaps.yaml
-    │   └── summaries/
     ├── research/             # Research outputs
-    │   ├── pass-1-landscape.md
-    │   ├── pass-2-deepdive.md
-    │   ├── pass-3-gaps.md
-    │   ├── synthesis.md
-    │   ├── knowledge-map.yaml
-    │   └── misconceptions.yaml
     └── reviews/              # Quality reviews
 ```
 
@@ -307,19 +290,6 @@ Content design follows:
 - **Application** — Practice with feedback
 - **Integration** — Transfer to real life
 
-## Supported Course Types
-
-Course OS adapts to any course format:
-
-| Format | Description |
-|--------|-------------|
-| **Self-paced** | Async video courses (Teachable, Thinkific, Kajabi) |
-| **Cohort-based** | Live sessions + async content |
-| **Corporate training** | SCORM/xAPI for enterprise LMS |
-| **Academic** | Semester-based, accredited programs |
-| **Workshop** | Intensive 1-3 day programs |
-| **Hybrid** | Mix of live and recorded |
-
 ## Platform Exports
 
 Phase 10 generates exports for:
@@ -356,6 +326,15 @@ v1.0.0  # Course complete
 
 Resume any time by running `/course-os` — it reads your progress and continues where you left off.
 
+## Incremental Exports
+
+Each phase generates handoff artifacts in `production/handoff/phase-N/`:
+
+- **Stakeholder review** — Share progress after each phase
+- **Parallel work** — Different team members can work on different phases
+- **Checkpoints** — Project management visibility
+- **Rollback** — Return to any phase state
+
 ## Accessibility Standards
 
 Course OS enforces accessibility throughout:
@@ -374,31 +353,27 @@ Course OS enforces accessibility throughout:
 - **Multiple means of representation** — Video + text + audio
 - **Multiple means of expression** — Different assessment types
 
-## Example Workflow
+## File Structure
 
 ```
-$ git clone https://github.com/webmasterarbez/course-os.git my-courses
-$ cd my-courses
-$ claude
-
-You: /course-os
-
-Course OS: What is the name of your course?
-
-You: Building SaaS Products
-
-Course OS: Initializing course project...
-           ✓ Created specs/, content/, assets/, production/
-           ✓ Initialized progress tracking
-
-           Starting Phase 1: Source Collection & Import
-
-           Do you have any existing course content to import?
-           (Previous versions, outlines, scripts, videos, slides)
-
-You: Yes, I have a slide deck and some blog posts...
-
-[Continues through all 10 phases with one question at a time]
+course-os/
+├── config.yml                # Root configuration
+├── templates/
+│   ├── init-course.sh        # Course initialization
+│   ├── config-default.yml    # Full workflow profile
+│   ├── config-mini.yml       # Quick course profile
+│   └── config-workshop.yml   # Workshop profile
+├── .claude/
+│   ├── standards/            # Instructional design frameworks (5 files)
+│   ├── skills/               # Self-contained phase skills (11 skills)
+│   ├── commands/             # Management commands (7 commands)
+│   └── quickref/             # Quick reference cards (10 files)
+├── schemas/                  # YAML validation schemas
+├── scripts/
+│   ├── base-install.sh       # Global installation
+│   └── project-install.sh    # Per-project installation
+├── CLAUDE.md                 # Claude Code guidance
+└── README.md
 ```
 
 ## Requirements
@@ -407,32 +382,17 @@ You: Yes, I have a slide deck and some blog posts...
 - **Git** — For version control and progress tracking
 - **Bash** — For initialization scripts (Windows: use WSL or Git Bash)
 
-## File Structure
-
-```
-course-os/
-├── .claude/skills/           # 11 skills with supporting files (32 total)
-├── scripts/
-│   ├── base-install.sh       # Global installation
-│   └── project-install.sh    # Per-project installation
-├── templates/
-│   └── init-course.sh        # Course initialization
-├── schemas/                  # YAML schemas
-├── CLAUDE.md                 # Claude Code guidance
-└── README.md
-```
-
 ## Contributing
 
 Course OS is extensible:
 
-1. **Add new skills** in `.claude/skills/<skill-name>/SKILL.md`
-2. **Add supporting files** with intention-revealing names (e.g., `schema-name.md`)
-3. **Add templates** in `templates/`
-4. **Add schemas** in `schemas/`
-5. Follow the YAML + Markdown pattern for outputs
-6. Maintain framework alignment (ADDIE, Bloom's, Gagné, Kirkpatrick, Merrill)
-7. Keep SKILL.md files concise (<100 lines), use progressive disclosure
+1. **Standards** go in `.claude/standards/`
+2. **Skills** go in `.claude/skills/<skill-name>/SKILL.md` (self-contained)
+3. **Commands** go in `.claude/commands/<category>/<command>.md`
+4. **Quick refs** go in `.claude/quickref/`
+5. **Templates** go in `templates/`
+6. Follow the YAML + Markdown pattern for outputs
+7. Maintain framework alignment (ADDIE, Bloom's, Gagné, Kirkpatrick, Merrill)
 
 ## License
 
@@ -441,6 +401,7 @@ MIT
 ## Credits
 
 - Inspired by [Design OS](https://buildermethods.com/design-os) by Brian Casel
+- Architecture patterns from [Agent OS](https://buildermethods.com/agent-os)
 - Built with [Claude Code](https://claude.ai/code)
 - Instructional design frameworks: ADDIE, Bloom's Taxonomy, Gagné's 9 Events, Kirkpatrick Model, Merrill's First Principles
 

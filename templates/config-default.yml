@@ -1,0 +1,71 @@
+# Course OS - Default Profile Configuration
+# Full 10-phase course development for comprehensive courses
+
+profile: default
+
+name: "Full Course"
+description: |
+  Complete 10-phase course development following ADDIE methodology.
+  Best for: Online courses, certification programs, comprehensive training.
+
+phases:
+  enabled: all
+
+  phase_config:
+    import:
+      depth: comprehensive
+      require_sources: true
+
+    research:
+      passes: 4  # Full 4-pass research
+      require_knowledge_map: true
+      require_misconceptions: true
+
+    discovery:
+      personas: 2-3
+      competitor_analysis: true
+      require_positioning: true
+
+    strategy:
+      require_blooms_alignment: true
+      require_kirkpatrick_metrics: true
+
+    architecture:
+      require_gagne_events: true
+      require_outcome_mapping: true
+
+    content:
+      require_merrills_principles: true
+      require_examples: true
+      require_activities: true
+
+    scripts:
+      formats: [video, screencast, slides, facilitation]
+      require_visual_cues: true
+
+    assessments:
+      require_all_kirkpatrick_levels: true
+      require_rubrics: true
+
+    media:
+      require_shot_lists: true
+      require_accessibility_specs: true
+
+    production:
+      require_quality_audit: true
+      generate_all_exports: true
+
+exports:
+  - universal
+  - teachable
+  - thinkific
+  - scorm
+  - xapi
+  - localization
+
+quality:
+  gates: strict
+  minimum_score: 80
+  require_review: true
+
+duration_estimate: "4-8 weeks"

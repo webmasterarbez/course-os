@@ -1,22 +1,32 @@
 #!/bin/bash
 
 # Course OS - Course Initializer
-# Usage: ./templates/init-course.sh <course-name>
-#   or:  ./templates/init-course.sh --here <course-name>
+# Usage: ./templates/init-course.sh <course-name> [--profile <profile>]
+#   or:  ./templates/init-course.sh --here <course-name> [--profile <profile>]
 #
 # --here flag initializes in current directory instead of creating subdirectory
+# --profile flag specifies the configuration profile (default, mini, workshop)
 
 set -e
+
+# Get script directory for accessing templates
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+COURSE_OS_ROOT="$(dirname "$SCRIPT_DIR")"
 
 # Parse arguments
 INIT_HERE=false
 COURSE_NAME=""
+PROFILE="default"
 
 while [[ $# -gt 0 ]]; do
     case $1 in
         --here)
             INIT_HERE=true
             shift
+            ;;
+        --profile)
+            PROFILE="$2"
+            shift 2
             ;;
         *)
             COURSE_NAME="$1"
@@ -26,14 +36,27 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ -z "$COURSE_NAME" ]; then
-    echo "Usage: ./templates/init-course.sh [--here] <course-name>"
+    echo "Usage: ./templates/init-course.sh [--here] <course-name> [--profile <profile>]"
     echo ""
     echo "Options:"
-    echo "  --here    Initialize in current directory (don't create subdirectory)"
+    echo "  --here              Initialize in current directory (don't create subdirectory)"
+    echo "  --profile <name>    Use configuration profile: default, mini, workshop"
+    echo ""
+    echo "Profiles:"
+    echo "  default   Full 10-phase workflow (comprehensive courses)"
+    echo "  mini      Condensed 7-phase workflow (quick courses)"
+    echo "  workshop  5-phase workflow (live workshops)"
     echo ""
     echo "Examples:"
     echo "  ./templates/init-course.sh my-awesome-course"
     echo "  ./templates/init-course.sh --here my-awesome-course"
+    echo "  ./templates/init-course.sh my-course --profile mini"
+    exit 1
+fi
+
+# Validate profile
+if [[ ! "$PROFILE" =~ ^(default|mini|workshop)$ ]]; then
+    echo "Error: Invalid profile '$PROFILE'. Must be: default, mini, or workshop"
     exit 1
 fi
 
@@ -48,7 +71,18 @@ else
 fi
 
 # Create directory structure
-mkdir -p "$COURSE_DIR"/{specs/modules,content/{scripts,lessons,assessments/{quizzes,projects,rubrics,self,surveys},examples,activities,resources},assets/{images,videos,audio,downloads},production/{shot-lists,graphics,audio,interactive,accessibility,checklists,handoff,exports/{universal,teachable,thinkific,scorm,xapi,localization}},.course-os/{imports/{courses,references,media,urls,knowledge},research,reviews}}
+mkdir -p "$COURSE_DIR"/{specs/modules,content/{scripts,lessons,assessments/{quizzes,projects,rubrics,self,surveys},examples,activities,resources},assets/{images,videos,audio,downloads},production/{shot-lists,graphics,audio,interactive,accessibility,checklists/phase-gates,handoff/{phase-1,phase-2,phase-3,phase-4,phase-5,phase-6,phase-7,phase-8,phase-9,phase-10},exports/{universal,teachable,thinkific,scorm,xapi,localization}},.course-os/{imports/{courses,references,media,urls,knowledge},research,reviews}}
+
+# Copy configuration template based on profile
+echo "Using profile: $PROFILE"
+CONFIG_TEMPLATE="$COURSE_OS_ROOT/templates/config-${PROFILE}.yml"
+if [ -f "$CONFIG_TEMPLATE" ]; then
+    cp "$CONFIG_TEMPLATE" "$COURSE_DIR/config.yml"
+    # Update course name in config
+    sed -i "s/name: \".*\"/name: \"$COURSE_NAME\"/" "$COURSE_DIR/config.yml"
+else
+    echo "Warning: Config template not found at $CONFIG_TEMPLATE"
+fi
 
 # Get current date
 TODAY=$(date +%Y-%m-%d)
@@ -239,12 +273,14 @@ fi
 
 echo ""
 echo "Course project initialized: $COURSE_DIR"
+echo "Profile: $PROFILE"
 echo ""
 if [ "$INIT_HERE" = true ]; then
     echo "Run /course-os to start Phase 1: Source Collection & Import"
 else
     echo "Next steps:"
     echo "  1. cd $COURSE_NAME"
-    echo "  2. Run /course-os to start development"
+    echo "  2. Review config.yml to customize settings"
+    echo "  3. Run /course-os to start development"
 fi
 echo ""
