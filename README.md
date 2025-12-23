@@ -36,43 +36,60 @@ Course OS is the missing step between your course idea and production. It's a sk
 | 9 | `/course-media` | Shot lists, graphics specs, accessibility requirements |
 | 10 | `/course-production` | Complete handoff package with platform exports |
 
-## Quick Start
+## Installation
 
-### 1. Clone and Open
+### Step 1: Base Install
+
+Install Course OS to your home directory (one-time setup):
 
 ```bash
-git clone https://github.com/webmasterarbez/course-os.git my-courses
-cd my-courses
+curl -sSL https://raw.githubusercontent.com/webmasterarbez/course-os/main/scripts/base-install.sh | bash
+```
+
+This creates `~/course-os` with all skills, templates, and scripts.
+
+**Windows Users:** Use WSL or Git Bash.
+
+### Step 2: Project Install
+
+Navigate to any project directory and run:
+
+```bash
+cd /path/to/your/project
+~/course-os/scripts/project-install.sh
+```
+
+You'll be prompted for your course name. The installer will:
+- Create the course directory structure
+- Initialize specs and progress tracking
+- Install all 11 Course OS skills
+
+### Step 3: Start Development
+
+```bash
 claude
-```
-
-### 2. Start Course OS
-
-```
 /course-os
 ```
 
-Course OS will:
-1. Ask for your course name
-2. Initialize the project structure
-3. Guide you to start development
+Course OS will guide you through the 10-phase workflow.
 
-### 3. Enter Your Course Project
+## Quick Start (Alternative)
 
-After initialization:
+If you prefer to clone directly:
 
 ```bash
-cd <your-course-name>
+git clone https://github.com/webmasterarbez/course-os.git my-course
+cd my-course
 claude
 /course-os
 ```
 
-Now you're in the 10-phase workflow. Course OS will guide you through each phase, asking questions one at a time.
+## Usage
 
 ### Resume Anytime
 
 ```bash
-cd <your-course-name>
+cd /path/to/your/course
 claude
 /course-os
 ```
@@ -85,6 +102,19 @@ Course OS reads your progress and continues where you left off.
 /course-import      # Phase 1: Import sources
 /course-research    # Phase 2: Deep research
 /course-strategy    # Phase 4: Define outcomes
+```
+
+### Installation Options
+
+```bash
+# Specify course name directly
+~/course-os/scripts/project-install.sh --name "My Course"
+
+# Preview without installing
+~/course-os/scripts/project-install.sh --dry-run
+
+# Verbose output
+~/course-os/scripts/project-install.sh --verbose
 ```
 
 ## Course Project Structure
@@ -325,27 +355,25 @@ Course OS: Please provide the paths or URLs to these materials...
 ## File Structure
 
 ```
-course-os/
-├── .claude/skills/           # Skill definitions
-│   ├── course-os/
-│   ├── course-import/
-│   ├── course-research/
-│   ├── course-discovery/
-│   ├── course-strategy/
-│   ├── course-architecture/
-│   ├── course-content/
-│   ├── course-scripts/
-│   ├── course-assessments/
-│   ├── course-media/
-│   └── course-production/
+~/course-os/                  # Base installation
+├── .claude/skills/           # Skill definitions (11 skills)
+│   ├── course-os/            # Master orchestrator
+│   ├── course-import/        # Phase 1
+│   ├── course-research/      # Phase 2
+│   ├── course-discovery/     # Phase 3
+│   ├── course-strategy/      # Phase 4
+│   ├── course-architecture/  # Phase 5
+│   ├── course-content/       # Phase 6
+│   ├── course-scripts/       # Phase 7
+│   ├── course-assessments/   # Phase 8
+│   ├── course-media/         # Phase 9
+│   └── course-production/    # Phase 10
+├── scripts/                  # Installation scripts
+│   ├── base-install.sh       # Global installation
+│   └── project-install.sh    # Per-project installation
 ├── templates/                # Project templates
-│   ├── course.yaml
-│   ├── progress.yaml
-│   └── init-course.sh
+│   └── init-course.sh        # Legacy init script
 ├── schemas/                  # YAML schemas
-│   ├── outcome.yaml
-│   ├── lesson.yaml
-│   └── module.yaml
 ├── CLAUDE.md                 # Claude Code guidance
 └── README.md                 # This file
 ```
@@ -375,8 +403,9 @@ MIT
 **Ready to create your course?**
 
 ```bash
-git clone https://github.com/webmasterarbez/course-os.git
-cd course-os
+curl -sSL https://raw.githubusercontent.com/webmasterarbez/course-os/main/scripts/base-install.sh | bash
+cd /path/to/your/project
+~/course-os/scripts/project-install.sh
 claude
 ```
 
