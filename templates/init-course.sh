@@ -20,17 +20,54 @@ mkdir -p "$COURSE_DIR"/{specs/modules,content/{scripts,lessons,assessments/{quiz
 # Copy templates
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -f "$SCRIPT_DIR/course.yaml" ]; then
-    cp "$SCRIPT_DIR/course.yaml" "$COURSE_DIR/specs/course.yaml"
-fi
+# Get current date
+TODAY=$(date +%Y-%m-%d)
+
+# Create course.yaml with populated values
+cat > "$COURSE_DIR/specs/course.yaml" << EOF
+# Course OS - Course Specification
+# Generated: $TODAY
+
+course:
+  name: "$COURSE_NAME"
+  slug: "$COURSE_NAME"
+  version: "0.1.0"
+  status: "planning"  # planning | development | review | production | published
+  created: $TODAY
+  updated: $TODAY
+
+meta:
+  author: ""
+  organization: ""
+  contact: ""
+  languages:
+    primary: "en"
+    translations: []
+
+type:
+  format: ""  # self-paced | cohort | live | hybrid
+  category: ""  # online | corporate | academic | workshop
+  level: ""  # beginner | intermediate | advanced | all-levels
+
+duration:
+  total: ""
+  recommended_pace: ""
+  access_period: ""  # lifetime | 12-months | etc.
+
+phases:
+  current: 1
+  completed: []
+
+tags: []
+EOF
 
 if [ -f "$SCRIPT_DIR/progress.yaml" ]; then
     cp "$SCRIPT_DIR/progress.yaml" "$COURSE_DIR/specs/progress.yaml"
 fi
 
-# Initialize git
+# Initialize git with 'main' as default branch
 cd "$COURSE_DIR"
-git init
+git init -b main
 
 # Create .gitignore
 cat > .gitignore << 'EOF'
