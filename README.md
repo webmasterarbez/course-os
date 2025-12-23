@@ -38,33 +38,54 @@ Course OS is the missing step between your course idea and production. It's a sk
 
 ## Quick Start
 
-### 1. Initialize a New Course
+### 1. Clone and Open
 
 ```bash
-cd /path/to/course-os
-./templates/init-course.sh my-awesome-course
-cd my-awesome-course
+git clone https://github.com/webmasterarbez/course-os.git my-courses
+cd my-courses
+claude
 ```
 
-### 2. Start Development
-
-Run the master skill to begin:
+### 2. Start Course OS
 
 ```
 /course-os
 ```
 
-Or jump to a specific phase:
+Course OS will:
+1. Ask for your course name
+2. Initialize the project structure
+3. Guide you to start development
+
+### 3. Enter Your Course Project
+
+After initialization:
+
+```bash
+cd <your-course-name>
+claude
+/course-os
+```
+
+Now you're in the 10-phase workflow. Course OS will guide you through each phase, asking questions one at a time.
+
+### Resume Anytime
+
+```bash
+cd <your-course-name>
+claude
+/course-os
+```
+
+Course OS reads your progress and continues where you left off.
+
+### Jump to a Specific Phase
 
 ```
-/course-import      # Start with importing sources
-/course-research    # Deep topic research
-/course-strategy    # Define outcomes and format
+/course-import      # Phase 1: Import sources
+/course-research    # Phase 2: Deep research
+/course-strategy    # Phase 4: Define outcomes
 ```
-
-### 3. Follow the Workflow
-
-Course OS will guide you through each phase, asking questions one at a time to gather requirements. Each phase produces structured specifications before moving to the next.
 
 ## Course Project Structure
 
@@ -252,25 +273,39 @@ Course OS enforces accessibility standards:
 ## Example Workflow
 
 ```
+# Step 1: Clone and start
+$ git clone https://github.com/webmasterarbez/course-os.git my-courses
+$ cd my-courses
+$ claude
+
 You: /course-os
 
-Course OS: Let me check for an existing project...
-           No course.yaml found. Starting new course.
+Course OS: No specs/course.yaml found. This is a fresh Course OS installation.
 
            What is the name of your course?
 
-You: "Building Your First SaaS Product"
+You: building-saas
 
-Course OS: What type of course format?
-           A. Self-paced video course
-           B. Cohort-based with live sessions
-           C. Hybrid (self-paced + live)
-           D. Workshop/bootcamp
+Course OS: Creating course project...
+           [runs ./templates/init-course.sh building-saas]
 
-You: A
+           Course project created: building-saas/
 
-Course OS: Initializing project structure...
-           Starting Phase 1: Source Collection & Import
+           To start development:
+             cd building-saas
+             claude
+             /course-os
+
+# Step 2: Enter the course project
+$ cd building-saas
+$ claude
+
+You: /course-os
+
+Course OS: Found existing course: building-saas
+           Current phase: 1 (Source Collection & Import)
+
+           Starting Phase 1...
 
            Do you have any existing course content to import?
            (Previous versions, outlines, scripts, videos, slides)
@@ -340,8 +375,9 @@ MIT
 **Ready to create your course?**
 
 ```bash
-./templates/init-course.sh my-course
-cd my-course
+git clone https://github.com/webmasterarbez/course-os.git
+cd course-os
+claude
 ```
 
 Then run `/course-os` and let's build something great.
