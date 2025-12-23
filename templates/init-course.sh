@@ -47,10 +47,6 @@ else
     mkdir -p "$COURSE_DIR"
 fi
 
-# Get script directory for copying skills
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$(dirname "$SCRIPT_DIR")"
-
 # Create directory structure
 mkdir -p "$COURSE_DIR"/{specs/modules,content/{scripts,lessons,assessments/{quizzes,projects,rubrics,self,surveys},examples,activities,resources},assets/{images,videos,audio,downloads},production/{shot-lists,graphics,audio,interactive,accessibility,checklists,handoff,exports/{universal,teachable,thinkific,scorm,xapi,localization}},.course-os/{imports/{courses,references,media,urls,knowledge},research,reviews}}
 
@@ -204,13 +200,6 @@ course_status: in_development
 completion_date: null
 final_version: null
 EOF
-
-# Copy Course OS skills if not already present
-if [ -d "$REPO_DIR/.claude/skills" ] && [ ! -d "$COURSE_DIR/.claude/skills/course-os" ]; then
-    echo "Installing Course OS skills..."
-    mkdir -p "$COURSE_DIR/.claude"
-    cp -r "$REPO_DIR/.claude/skills" "$COURSE_DIR/.claude/"
-fi
 
 # Initialize git if not already a repo (skip if --here and already has .git)
 if [ ! -d "$COURSE_DIR/.git" ]; then
