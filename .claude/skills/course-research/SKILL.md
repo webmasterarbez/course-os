@@ -1,310 +1,93 @@
 ---
 name: course-research
-description: Use for Phase 2 of course development - conducting deep topic research using multi-pass strategy to build comprehensive knowledge foundation. Triggers on "/course-research", "research course topic", or after completing Phase 1.
+description: Use for Phase 2 of Course OS - conducting comprehensive topic research using a 4-pass strategy (landscape, deep dive, gap filling, synthesis) to build complete subject matter understanding. Triggers on "/course-research", "research topic", "deep dive research", or after completing Phase 1.
 ---
 
 # Phase 2: Deep Topic Research
 
-## Overview
-
-Comprehensive subject matter investigation using multi-pass research. This phase synthesizes imported sources with new research to build complete topic understanding.
-
-## When to Use
-
-- After completing Phase 1 (Source Import)
-- Need comprehensive topic research
-- Want to fill knowledge gaps
-- Resuming Phase 2 of an existing project
+Comprehensive subject matter investigation using multi-pass research strategy.
 
 ## Prerequisites
 
-- Phase 1 complete (sources imported)
+- Phase 1 complete
 - `.course-os/imports/catalog.yaml` exists
 - `.course-os/imports/gaps.yaml` identifies research needs
 
-## Research Strategy
-
-### Multi-Pass Approach
-
-**Pass 1: Broad Landscape**
-- Overview of the topic domain
-- Major subtopics and branches
-- Key terminology and concepts
-- Historical context and evolution
-
-**Pass 2: Deep Dive**
-- Detailed exploration of each subtopic
-- Expert perspectives and debates
-- Current best practices
-- Emerging trends
-
-**Pass 3: Gap Filling**
-- Address specific gaps from Phase 1
-- Find missing information
-- Validate assumptions
-- Cross-reference sources
-
-**Pass 4: Synthesis**
-- Connect concepts across sources
-- Identify patterns and themes
-- Resolve contradictions
-- Build unified understanding
-
 ## Process
 
-### Step 1: Review Imported Sources
+### Step 1: Review Phase 1 Outputs
 
 ```bash
-# Load and analyze previous phase outputs
 cat .course-os/imports/catalog.yaml
 cat .course-os/imports/gaps.yaml
 ```
 
 ### Step 2: Define Research Scope
 
-Ask (one at a time):
+Ask ONE at a time:
 
-1. **Core Topic:**
-   > What is the primary topic of this course?
-   > (Brief description of the subject matter)
+1. **"What is the primary topic of this course?"**
+2. **"What expertise level should research target?"** (Beginner/Intermediate/Advanced/Comprehensive)
+3. **"Are there specific subtopics needing extra research?"**
+4. **"Anything explicitly out of scope?"**
 
-2. **Depth Level:**
-   > What expertise level should research target?
-   > - Beginner (foundational concepts)
-   > - Intermediate (practical application)
-   > - Advanced (expert techniques)
-   > - Comprehensive (all levels)
+### Step 3: Execute 4-Pass Research
 
-3. **Specific Areas:**
-   > Are there specific subtopics that need extra research?
-   > (List or describe)
+**Pass 1: Broad Landscape**
+- Overview of topic domain
+- Major subtopics and branches
+- Key terminology and concepts
+→ Output: `.course-os/research/pass-1-landscape.md`
 
-4. **Exclusions:**
-   > Anything explicitly out of scope?
-   > (Topics to avoid or limit)
+**Pass 2: Deep Dive**
+- Detailed exploration per subtopic
+- Expert perspectives and debates
+- Current best practices and trends
+→ Output: `.course-os/research/pass-2-deepdive.md`
 
-### Step 3: Execute Research Passes
+**Pass 3: Gap Filling**
+- Address gaps from Phase 1
+- Validate assumptions
+- Cross-reference sources
+→ Output: `.course-os/research/pass-3-gaps.md`
 
-#### Pass 1: Broad Landscape
-```yaml
-research_queries:
-  - "[topic] overview fundamentals"
-  - "[topic] key concepts terminology"
-  - "[topic] history evolution"
-  - "[topic] major approaches methods"
-  - "[topic] current state 2024 2025"
-```
-
-Output: `research/pass-1-landscape.md`
-
-#### Pass 2: Deep Dive
-For each major subtopic identified:
-```yaml
-research_queries:
-  - "[subtopic] best practices"
-  - "[subtopic] expert techniques"
-  - "[subtopic] common mistakes"
-  - "[subtopic] case studies examples"
-  - "[subtopic] tools resources"
-```
-
-Output: `research/pass-2-deepdive.md`
-
-#### Pass 3: Gap Filling
-Address each gap from Phase 1:
-```yaml
-research_queries:
-  - Specific queries for each identified gap
-  - Validation queries for assumptions
-  - Counter-argument searches
-```
-
-Output: `research/pass-3-gaps.md`
-
-#### Pass 4: Synthesis
-Combine and analyze all findings.
-
-Output: `research/synthesis.md`
+**Pass 4: Synthesis**
+- Connect concepts across sources
+- Identify patterns and themes
+- Build unified understanding
+→ Output: `.course-os/research/synthesis.md`
 
 ### Step 4: Build Knowledge Map
 
-Create concept map showing:
-- Core concepts
-- Relationships between concepts
-- Prerequisites and dependencies
-- Learning sequence suggestions
+Create `.course-os/research/knowledge-map.yaml` - see `./knowledge-map-schema.md`
 
-```yaml
-# .course-os/research/knowledge-map.yaml
-concepts:
-  - id: concept-001
-    name: ""
-    description: ""
-    prerequisites: []
-    related_to: []
-    complexity: beginner|intermediate|advanced
-    sources: []
+### Step 5: Document Misconceptions
 
-  - id: concept-002
-    name: ""
-    # ...
-
-relationships:
-  - from: concept-001
-    to: concept-002
-    type: prerequisite|related|builds_on|contrasts_with
-
-sequences:
-  suggested_order:
-    - concept-001
-    - concept-002
-```
-
-### Step 5: Identify Misconceptions
-
-Document common misunderstandings:
-
-```yaml
-# .course-os/research/misconceptions.yaml
-misconceptions:
-  - id: misc-001
-    misconception: ""
-    reality: ""
-    why_common: ""
-    how_to_address: ""
-    sources: []
-
-  - id: misc-002
-    # ...
-```
-
-### Step 6: Extract Key Insights
-
-Compile actionable insights:
-
-```yaml
-# .course-os/research/insights.yaml
-insights:
-  foundational:
-    - ""
-  practical:
-    - ""
-  advanced:
-    - ""
-  emerging:
-    - ""
-
-key_frameworks:
-  - name: ""
-    description: ""
-    when_to_use: ""
-    source: ""
-
-notable_experts:
-  - name: ""
-    expertise: ""
-    key_contributions: ""
-    resources: []
-```
+Create `.course-os/research/misconceptions.yaml` - see `./misconceptions-schema.md`
 
 ## Outputs
 
-### .course-os/research/
-```
-research/
-├── pass-1-landscape.md
-├── pass-2-deepdive.md
-├── pass-3-gaps.md
-├── synthesis.md
-├── knowledge-map.yaml
-├── misconceptions.yaml
-├── insights.yaml
-└── sources.yaml
-```
+- `.course-os/research/pass-*.md` - Research passes
+- `.course-os/research/synthesis.md` - Unified synthesis
+- `.course-os/research/knowledge-map.yaml` - Concept map
+- `.course-os/research/misconceptions.yaml` - Common misunderstandings
+- `specs/research.yaml` - Research summary
 
-### specs/research.yaml
-```yaml
-research:
-  completed: YYYY-MM-DD
-  topic: ""
-  depth: ""
-
-  statistics:
-    sources_analyzed: <n>
-    concepts_mapped: <n>
-    misconceptions_identified: <n>
-    research_hours: <n>
-
-  key_findings:
-    - ""
-
-  knowledge_gaps_remaining:
-    - ""
-
-  recommendations:
-    - ""
-```
-
-### progress.yaml (updated)
-```yaml
-phases:
-  research:
-    status: completed
-    started_at: YYYY-MM-DD
-    completed_at: YYYY-MM-DD
-    passes_completed: 4
-    notes:
-      - "Mapped [n] core concepts"
-      - "Identified [n] misconceptions"
-      - "Synthesized [n] sources"
-```
-
-## Research Quality Criteria
-
-Before completing Phase 2:
+## Quality Checklist
 
 - [ ] All 4 research passes complete
-- [ ] Knowledge map covers all major concepts
+- [ ] Knowledge map covers major concepts
 - [ ] Misconceptions documented
-- [ ] Sources properly cited
 - [ ] Gaps from Phase 1 addressed
-- [ ] Synthesis document coherent
-- [ ] Ready for audience/market discovery
-
-## Source Citation Format
-
-```yaml
-sources:
-  - id: src-001
-    type: article|book|video|website|course
-    title: ""
-    author: ""
-    url: ""
-    accessed: YYYY-MM-DD
-    relevance: high|medium|low
-    key_points:
-      - ""
-```
 
 ## Git Commit
 
 ```bash
-git add .course-os/research specs/research.yaml progress.yaml
-git commit -m "Phase 2: Deep topic research complete
-
-- Completed 4-pass research strategy
-- Mapped [n] concepts
-- Identified [n] misconceptions
-- Synthesized [n] sources"
+git add .course-os/research specs/research.yaml specs/progress.yaml
+git commit -m "Phase 2: Deep topic research complete"
 git tag -a phase-2-research -m "Deep Topic Research Complete"
 ```
 
 ## Next Phase
 
-After completing Phase 2, proceed to:
 → `/course-discovery` (Phase 3: Audience & Market Discovery)
-
-The discovery phase will:
-- Analyze target audience
-- Research competitor courses
-- Identify market positioning
