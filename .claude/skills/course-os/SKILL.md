@@ -6,6 +6,64 @@ Course OS is a comprehensive course development system that guides you through 1
 
 **Use this skill to:** Create any type of educational course with deep research, structured curriculum design, and production-ready specifications.
 
+## Execution Instructions
+
+**IMPORTANT: Follow these steps exactly when this skill is invoked.**
+
+### Step 1: Check for Existing Course Project
+
+First, check if `specs/course.yaml` exists in the current working directory.
+
+**If `specs/course.yaml` EXISTS:**
+- This is an existing course project
+- Read `specs/progress.yaml` to determine current phase
+- Resume from the current phase (skip to Step 3)
+
+**If `specs/course.yaml` does NOT exist:**
+- This is a fresh Course OS clone - need to initialize
+- Proceed to Step 2
+
+### Step 2: Initialize New Course Project
+
+Ask the user: **"What is the name of your course?"**
+
+Wait for their response, then run the initialization:
+
+```bash
+./templates/init-course.sh "<course-name>"
+```
+
+This creates the course project as a subdirectory. After it completes, inform the user:
+
+```
+Course project created: <course-name>/
+
+To start development:
+  cd <course-name>
+  claude
+  /course-os
+```
+
+**STOP HERE** - The user needs to cd into the new directory and restart Claude Code.
+
+### Step 3: Resume/Start Course Development
+
+Once in an initialized course project (specs/course.yaml exists):
+
+1. Read `specs/progress.yaml` to check current phase status
+2. Display current progress summary
+3. Continue with the appropriate phase skill:
+   - Phase 1: `/course-import`
+   - Phase 2: `/course-research`
+   - Phase 3: `/course-discovery`
+   - Phase 4: `/course-strategy`
+   - Phase 5: `/course-architecture`
+   - Phase 6: `/course-content`
+   - Phase 7: `/course-scripts`
+   - Phase 8: `/course-assessments`
+   - Phase 9: `/course-media`
+   - Phase 10: `/course-production`
+
 ## The 10 Phases
 
 | Phase | Skill | Purpose |
@@ -21,100 +79,6 @@ Course OS is a comprehensive course development system that guides you through 1
 | 9 | `/course-media` | Media Production Planning |
 | 10 | `/course-production` | Production Package |
 
-## When to Use
-
-**Use `/course-os` when:**
-- Starting a new course from scratch
-- Want guided flow through all phases
-- Need comprehensive course development
-
-**Use individual phase skills when:**
-- Resuming work on a specific phase
-- Need to iterate on one area
-- Working on standalone content (single lesson, module)
-
-## Workflow
-
-### Starting a New Course
-
-1. **Initialize the course project:**
-   ```bash
-   mkdir -p <course-name>/{specs,content,assets,production}
-   mkdir -p <course-name>/specs/modules
-   mkdir -p <course-name>/content/{scripts,lessons,assessments}
-   cd <course-name>
-   git init
-   ```
-
-2. **Create initial course.yaml:**
-   ```yaml
-   course:
-     name: ""
-     slug: ""
-     version: "0.1.0"
-     status: "planning"
-     created: YYYY-MM-DD
-
-   meta:
-     author: ""
-     organization: ""
-     languages:
-       primary: "en"
-       translations: []
-
-   type:
-     format: ""  # self-paced | cohort | live | hybrid
-     category: "" # online | corporate | academic | workshop
-
-   phases:
-     current: 1
-     completed: []
-   ```
-
-3. **Create progress.yaml:**
-   ```yaml
-   project:
-     name: ""
-     started: YYYY-MM-DD
-
-   phases:
-     import:
-       status: pending
-       started_at: null
-       completed_at: null
-       notes: []
-     research:
-       status: pending
-     discovery:
-       status: pending
-     strategy:
-       status: pending
-     architecture:
-       status: pending
-     content:
-       status: pending
-     scripts:
-       status: pending
-     assessments:
-       status: pending
-     media:
-       status: pending
-     production:
-       status: pending
-
-   quality:
-     scores: {}
-     audits: []
-   ```
-
-4. **Begin Phase 1** with `/course-import`
-
-### Resuming a Course
-
-1. Check `progress.yaml` for current status
-2. Review completed phase outputs
-3. Continue with the appropriate phase skill
-
 ## Output Structure
 
 ```
@@ -122,36 +86,28 @@ Course OS is a comprehensive course development system that guides you through 1
 ├── specs/
 │   ├── course.yaml           # Master course specification
 │   ├── progress.yaml         # Progress tracking
-│   ├── research.yaml         # Research findings
-│   ├── strategy.yaml         # Course strategy
+│   ├── outcomes.yaml         # Learning outcomes
+│   ├── personas.yaml         # Learner personas
 │   ├── curriculum.yaml       # Curriculum architecture
 │   ├── assessments.yaml      # Assessment specifications
-│   ├── media.yaml            # Media production specs
-│   ├── localization.yaml     # Multi-language specs
-│   └── modules/
-│       ├── module-01.yaml
-│       └── module-02.yaml
+│   └── modules/              # Per-module specs
 ├── content/
-│   ├── scripts/
-│   │   ├── module-01/
-│   │   │   ├── lesson-01.md
-│   │   │   └── lesson-02.md
-│   │   └── module-02/
-│   ├── lessons/
-│   │   └── [lesson content files]
-│   └── assessments/
-│       ├── quizzes/
-│       ├── projects/
-│       └── rubrics/
+│   ├── scripts/              # Production scripts
+│   ├── lessons/              # Lesson blueprints
+│   ├── assessments/          # Quizzes, projects, rubrics
+│   ├── examples/             # Case studies
+│   ├── activities/           # Exercises
+│   └── resources/            # Curated resources
 ├── assets/
 │   ├── images/
 │   ├── videos/
 │   ├── audio/
 │   └── downloads/
 ├── production/
+│   ├── shot-lists/
 │   ├── checklists/
-│   ├── exports/
-│   └── handoff/
+│   ├── handoff/
+│   └── exports/
 └── .course-os/
     ├── imports/              # Imported source materials
     ├── research/             # Research outputs
@@ -213,52 +169,20 @@ Each phase must pass quality validation before proceeding:
 3. **Consistency check** - Aligns with previous phases
 4. **Quality score** - Minimum threshold met
 
-Override with justification if needed.
-
 ## Accessibility Standards
 
 All content must meet:
 - **WCAG 2.1 AA** - Technical accessibility
 - **UDL Principles** - Universal Design for Learning
-  - Multiple means of engagement
-  - Multiple means of representation
-  - Multiple means of action/expression
 
 ## Version Control
 
 - Commit after each phase completion
-- Tag releases: `git tag -a v0.1.0 -m "Phase 1 complete"`
-- Use branches for major revisions
-- Changelog updated automatically
-
-## Phase Execution
-
-When running `/course-os`:
-
-1. **Check for existing project:**
-   - If `course.yaml` exists → resume from current phase
-   - If not → initialize new project
-
-2. **Ask one question at a time** to gather requirements
-
-3. **Execute each phase sequentially:**
-   - Validate prerequisites
-   - Run phase skill
-   - Validate outputs
-   - Update progress.yaml
-   - Commit with git tag
-
-4. **Generate production package** at completion
+- Tag releases: `phase-1-import`, `phase-2-research`, etc.
+- Final release: `v1.0.0`
 
 ## Commands
 
 - `/course-os` - Start or resume full course development
 - `/course-os status` - Show current progress
 - `/course-os validate` - Run quality checks
-- `/course-os export [platform]` - Generate platform export
-
-## Arguments
-
-- `--resume` - Resume from last phase
-- `--phase <n>` - Jump to specific phase
-- `--course <path>` - Specify course directory
