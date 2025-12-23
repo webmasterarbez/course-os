@@ -1,10 +1,10 @@
-# Course OS - Master Skill
+# course-os
+
+Use this skill when the user wants to create, develop, or resume work on an educational course. Triggers on: "/course-os", "create a course", "start course development", "course creation", "build a course", "develop curriculum".
 
 ## Overview
 
 Course OS is a comprehensive course development system that guides you through 10 structured phases to create professional educational content. It enforces instructional design best practices (ADDIE, Bloom's Taxonomy, Gagné's 9 Events, Kirkpatrick, Merrill's Principles) while supporting any course type and format.
-
-**Use this skill to:** Create any type of educational course with deep research, structured curriculum design, and production-ready specifications.
 
 ## Execution Instructions
 
