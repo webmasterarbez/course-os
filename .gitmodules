@@ -1,0 +1,3 @@
+[submodule "gethiredfast"]
+	path = gethiredfast
+	url = https://github.com/webmasterarbez/gethiredfast.git
